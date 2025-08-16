@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR Tool</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+  <link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Mozilla+Headline:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sedan+SC&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+
+  
+
+  <div class="wrap">
+    <div class="mainhead animate__animated animate__zoomIn" >Arjun's Qr Scanner and Generator</div>
+    <header>
+      <h1>QR Tool</h1>
+      <nav>
+        <button id="tab-scan" class="tab active" type="button">Scan QR</button>
+        <button id="tab-generate" class="tab" type="button">Generate QR</button>
+      </nav>
+      <div class="toggle">
+        <input id="autoOpen" type="checkbox" checked>
+        <label for="autoOpen">Auto-open links</label>
+      </div>
+    </header>
+
+    <!-- ===== Scan Section ===== -->
+    <div id="scan-section" class="card">
+      <div class="row">
+        <div>
+          <video id="preview" muted playsinline></video>
+          <div class="controls">
+            <select id="cameraSelect" title="Camera"></select>
+            <button id="startBtn" class="primary" type="button">Start</button>
+            <button id="stopBtn" type="button" disabled>Stop</button>
+            <label class="input">
+              <input id="fileInput" type="file" accept="image/*" hidden>
+              Upload image
+            </label>
+            <button id="torchBtn" type="button" disabled>Toggle torch</button>
+          </div>
+          <div class="status" id="status">Idle. Choose a camera and press Start.</div>
+        </div>
+
+        <div>
+          <h3 class="last-scan">Last Scan</h3>
+          <div class="result" id="result">—</div>
+          <div class="actions">
+            <button id="openBtn" type="button" disabled>Open in new tab</button>
+            <button id="copyBtn" type="button" disabled>Copy</button>
+          </div>
+          <p class="status note">
+            Works best on Chrome/Safari (mobile & desktop). If permission fails, reload and allow camera.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Generator Section ===== -->
+    <div id="generate-section" class="card" style="display:none">
+      <h3>Create QR Code</h3>
+      <div class="controls" style="margin-top:8px">
+        <input
+          type="text"
+          id="qrText"
+          placeholder="Enter text or URL (e.g., https://example.com)"
+          style="flex:1; min-width:220px; padding:10px; border-radius:12px; border:1px solid #263146; background:#0f1729; color:#e6edf3;"
+        />
+        <select id="qrSize" title="Size">
+          <option value="200">200×200</option>
+          <option value="250" selected>250×250</option>
+          <option value="300">300×300</option>
+          <option value="400">400×400</option>
+        </select>
+        <button id="genBtn" class="primary" type="button">Generate</button>
+      </div>
+
+      <div id="qrOutput" style="margin-top:20px; text-align:center">
+        <p class="status">Enter text/URL and click Generate.</p>
+      </div>
+    </div>
+
+    <footer>Built with HTML/CSS/JS + ZXing.</footer>
+  </div>
+
+  <!-- Libraries -->
+  <script src="https://unpkg.com/@zxing/browser@0.1.4/umd/index.min.js"></script>
+  <script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
+
+  <!-- Your scanner + logic -->
+  <script src="app.js"></script>
+
+  <!-- Tabs + Generator wiring (uses the existing styles) -->
+  <script>
+    // Tab switching
+    const scanTab = document.getElementById('tab-scan');
+    const genTab  = document.getElementById('tab-generate');
+    const scanSection = document.getElementById('scan-section');
+    const genSection  = document.getElementById('generate-section');
+
+    function showScan() {
+      scanTab.classList.add('active');
+      genTab.classList.remove('active');
+      scanSection.style.display = 'block';
+      genSection.style.display = 'none';
+    }
+    function showGen() {
+      genTab.classList.add('active');
+      scanTab.classList.remove('active');
+      scanSection.style.display = 'none';
+      genSection.style.display = 'block';
+    }
+
+    scanTab.addEventListener('click', showScan);
+    genTab.addEventListener('click', showGen);
+
+    // QR Generator (simple: uses a reliable API for PNG output)
+    const genBtn  = document.getElementById('genBtn');
+    const qrText  = document.getElementById('qrText');
+    const qrSize  = document.getElementById('qrSize');
+    const qrOutput= document.getElementById('qrOutput');
+
+    genBtn?.addEventListener('click', () => {
+      const text = (qrText.value || '').trim();
+      if (!text) {
+        qrOutput.innerHTML = '<p class="status">Please enter some text or a URL.</p>';
+        return;
+      }
+      const size = qrSize.value || '250';
+      const url  = 'https://api.qrserver.com/v1/create-qr-code/?size=' + size + 'x' + size + '&data=' + encodeURIComponent(text);
+
+      // Render image + download link
+      qrOutput.innerHTML = `
+        <img src="${url}" alt="Generated QR" width="${size}" height="${size}" style="border:1px solid #2a3853; border-radius:10px; padding:6px; background:#0f1729">
+        <div style="margin-top:10px; display:flex; gap:10px; justify-content:center">
+          <a id="qrDownload" href="${url}" download="qr-${size}.png" class="link">Download PNG</a>
+          <button id="qrCopyLink" class="primary" type="button">Copy text</button>
+        </div>
+      `;
+
+      // Wire "Copy text"
+      document.getElementById('qrCopyLink')?.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(text); }
+        catch {}
+      });
+    });
+  </script>
+</body>
+
+</html>

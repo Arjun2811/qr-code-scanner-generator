@@ -1,0 +1,128 @@
+:root{
+    --bg:#0b1220; --card:#151c2c; --text:#e6edf3; --sub:#9fb0c5; --accent:#66c2ff;
+  }
+  
+  *{box-sizing:border-box}
+  
+  body{
+    margin:0;
+    font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    min-height:100dvh;
+    background: conic-gradient(
+      from 180deg at 50% 50%, 
+       /* warm golden */
+     white 0deg,
+     #5fc3e4 90deg, 
+     white 180deg,
+       /* muted pink */
+      #5fc3e4 270deg,  /* pastel blue */
+      white 360deg   /* loop back */
+    );
+  }
+ 
+  
+  .wrap{max-width:960px; margin:auto; padding:16px; width:100%}
+  
+  header{
+    display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap
+  }
+  .mainhead{
+    font-size:60px;
+     font-family: "Sedan SC", serif;
+     text-align: center;
+     margin-bottom: 40px;
+     text-decoration: underline;
+     font-weight: 900;
+     color: #0b1220;
+  }
+  
+  h1{font-size:clamp(20px,4vw,28px); margin:0}
+  
+  .card{
+    background:var(--card);
+    border-radius:16px;
+    padding:16px;
+    box-shadow:0 8px 24px rgba(0,0,0,.25)
+  }
+  
+  .controls{
+    display:flex; gap:8px; flex-wrap:wrap; margin:12px 0
+  }
+  
+  select,button,label.input{
+    background:#0f1729; color:var(--text);
+    border:1px solid #263146; border-radius:12px; padding:10px 12px
+  }
+  
+  button{cursor:pointer}
+  button.primary{border-color:var(--accent)}
+  button:disabled{opacity:.5; cursor:not-allowed}
+  
+  video{
+    width:100%; max-height:55vh; border-radius:12px; background:#000;
+    aspect-ratio:16/9; object-fit:cover
+  }
+  
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media (max-width: 700px){ .row{grid-template-columns:1fr} }
+  
+  .status{font-size:14px; color:var(--sub)}
+  .result{
+    word-break:break-all; background:#0f1729; border:1px dashed #2a3853;
+    padding:10px; border-radius:10px; min-height:48px; display:flex; align-items:center
+  }
+  
+  .toggle{display:flex; align-items:center; gap:8px}
+  a.link{color:var(--accent); text-decoration:none}
+  footer{margin-top:16px; color:var(--sub); font-size:13px; text-align:center}
+  .last-scan{margin:6px 0}
+  .actions{margin-top:8px; display:flex; gap:8px}
+  .note{margin-top:10px}
+  
+  /* ===== New Styles for Tabs ===== */
+  nav { display: flex; gap: 8px; }
+  .tab {
+    padding: 8px 12px;
+    border: none;
+    background: #0f1729;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 14px;
+    border: 1px solid #263146;
+  }
+  .tab.active {
+    background: var(--accent);
+    color: #000;
+    font-weight: bold;
+  }
+  
+  /* ===== QR Generator Specific ===== */
+  #generate-section input[type="text"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #263146;
+    background: #0f1729;
+    color: var(--text);
+  }
+  
+  #qrOutput img {
+    border: 1px solid #2a3853;
+    border-radius: 10px;
+    padding: 6px;
+    background: #0f1729;
+  }
+  
+  #qrOutput a.link {
+    font-size: 14px;
+  }
+  
+  #qrOutput button.primary {
+    font-size: 14px;
+  }
+  
