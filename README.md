@@ -5,15 +5,15 @@ Built with **HTML, CSS, and JavaScript**, and deployed on **Vercel** for fast an
 
 ---
 
-## 🚀 Live Demo
-🔗 **[View Website](https://qr-code-scanner-generator-pi.vercel.app)**  
-💻 **[GitHub Repository](https://github.com/Arjun2811/qr-code-scanner-generator)**
+##  Live Demo
+**[View Website](https://qr-code-scanner-generator-pi.vercel.app)**  
+**[GitHub Repository](https://github.com/Arjun2811/qr-code-scanner-generator)**
 
 ---
 
-## ✨ Features
+## Features
 
-### 🔍 QR Code Scanner
+###  QR Code Scanner
 - Real-time scanning via device camera  
 - Option to upload an image containing a QR code  
 - Works on both desktop and mobile browsers  
@@ -21,14 +21,14 @@ Built with **HTML, CSS, and JavaScript**, and deployed on **Vercel** for fast an
 - Auto-open scanned URLs in a new tab  
 - Copy scanned results to clipboard
 
-### 🖋 QR Code Generator
+### QR Code Generator
 - Generate QR codes from any text or URL  
 - Instant preview of generated code  
 - Download QR codes as images
 
 ---
 
-## 🛠 Technologies Used
+## Technologies Used
 - **Frontend:** HTML, CSS, JavaScript  
 - **Libraries:**  
   - [`html5-qrcode`](https://github.com/mebjas/html5-qrcode) – QR scanning  
@@ -42,8 +42,7 @@ Built with **HTML, CSS, and JavaScript**, and deployed on **Vercel** for fast an
 .
 ├── index.html       # Main interface
 ├── style.css        # Styling
-├── script.js        # App logic
-├── assets/          # Icons/images
+├── app.js           # App logic
 └── README.md        # Documentation
 ```
 
@@ -51,30 +50,30 @@ Built with **HTML, CSS, and JavaScript**, and deployed on **Vercel** for fast an
 
 ## ⚡ Getting Started
 
-### 1️⃣ Clone the Repository
+### 1️. Clone the Repository
 ```bash
 git clone https://github.com/Arjun2811/qr-code-scanner-generator.git
 cd qr-code-scanner-generator
 ```
 
-### 2️⃣ Run Locally
+### 2️. Run Locally
 - Open `index.html` directly in your browser, **or**  
 - Use VS Code **Live Server** for a smoother experience.
 
 ---
 
-## 📱 Mobile Friendly
+## Mobile Friendly
 - Fully responsive layout for phones and tablets  
 - Works on modern browsers (Chrome, Safari, Edge)  
 - Requires camera permissions for scanning
 
 ---
 
-## 📜 License
+## License
 This project is licensed under the **MIT License** — you’re free to use and modify it.
 
 ---
 
-## 👨‍💻 Author
+## Author
 **Arjun Singh**  
 🔗 [GitHub Profile](https://github.com/Arjun2811)  
