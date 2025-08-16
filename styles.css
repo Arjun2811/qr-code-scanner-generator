@@ -30,7 +30,7 @@
     display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap
   }
   .mainhead{
-    font-size:60px;
+    font-size:40px;
      font-family: "Sedan SC", serif;
      text-align: center;
      margin-bottom: 40px;
